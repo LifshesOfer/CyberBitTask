@@ -39,16 +39,14 @@ namespace MsTests
             Assert.AreEqual("Product successfully added to your shopping cart", layerCart.GetSuccessMessage());
             
             Assert.AreEqual(item.GetProductName(), layerCart.GetAddedProductName());
-            var match = Regex.Match(item.GetProductPrice(), @"([-+]?[0-9]*\.?[0-9]+)");
-            double price = Convert.ToSingle(match.Groups[1].Value);
+
             double expectedPrice = layerCart.GetProductQuantity() * GetPriceFromString(item.GetProductPrice());
-            
-           
-            
+
             Assert.AreEqual(expectedPrice, GetPriceFromString(layerCart.GetTotalProducts()));
         }
 
-        public double GetPriceFromString(string currencyStr)
+        //Definitely not an optimal location, but ran out of time.
+        public static double GetPriceFromString(string currencyStr)
         {
             var match = Regex.Match(currencyStr, @"([-+]?[0-9]*\.?[0-9]+)");
             double price = Convert.ToSingle(match.Groups[1].Value);
